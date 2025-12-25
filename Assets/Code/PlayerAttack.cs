@@ -5,6 +5,8 @@ using UnityEngine;
 public class atack : MonoBehaviour
 {
     [SerializeField] private float attackCoolDown;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject[] fireBalls;
     private float coolDown = Mathf.Infinity;
     
     private Animator animator;
@@ -31,5 +33,8 @@ public class atack : MonoBehaviour
     {
         animator.SetTrigger("Attack");
         coolDown = 0;
+        
+        fireBalls[0].transform.position = firePoint.position;
+        fireBalls[0].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
     }
 }
