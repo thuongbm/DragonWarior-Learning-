@@ -5,7 +5,7 @@ using System.Net.Mime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class H : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Health playerHealth;
     [SerializeField] private Image totalHealthBar;
