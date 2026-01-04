@@ -11,7 +11,7 @@ public class CameraFollow : MonoBehaviour
     
     void Update()
     {
-        transform.position = new Vector3(player.position.x + lookAhead, transform.position.y, transform.position.z); 
+        transform.position = new Vector3(player.position.x + lookAhead, player.position.y, transform.position.z); 
         
         lookAhead = Mathf.Lerp(lookAhead, (CameraDistance * player.localScale.x), CameraSpeed * Time.deltaTime);
     }

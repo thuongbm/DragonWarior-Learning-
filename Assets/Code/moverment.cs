@@ -12,12 +12,9 @@ public class moverment : MonoBehaviour
     private float wallJumpCoolDown;
     private float horizontalInput;
     
-    [SerializeField]
-    private float speed = 5f;
-    [SerializeField]
-    private LayerMask groundLayer;
-    [SerializeField]
-    private LayerMask wallLayer;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask wallLayer;
     // Start is called before the first frame update
     void Start()
     {
