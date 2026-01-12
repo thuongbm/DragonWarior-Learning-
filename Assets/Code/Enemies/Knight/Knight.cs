@@ -20,16 +20,18 @@ public class Knight : MonoBehaviour
     
     private Animator animator;
     private Health health;
+    private KnightPatrol knightPatrol;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        knightPatrol = transform.parent.GetComponentInChildren<KnightPatrol>();
     }
 
     private void Update()
     {
         coolDownTimer += Time.deltaTime;
-
+        
         if (PlayerInSight())
         {
             if (coolDownTimer >= attackCoolDown)
@@ -38,6 +40,11 @@ public class Knight : MonoBehaviour
                 animator.SetTrigger("triggerAtk");
             }
             
+        }
+
+        if (knightPatrol != null)
+        {
+            knightPatrol.enabled = !PlayerInSight();
         }
     }
 
