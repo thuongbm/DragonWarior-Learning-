@@ -806,7 +806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421441344}
   - component: {fileID: 421441345}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Knight Patrol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32174,7 +32174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 631845430}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RightSide
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -33319,7 +33319,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1505462132}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LeftSide
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
