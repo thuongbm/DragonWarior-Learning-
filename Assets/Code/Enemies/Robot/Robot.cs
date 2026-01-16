@@ -29,6 +29,8 @@ public class Robot : MonoBehaviour
 
     private void Update()
     {
+        coolDownTimer += Time.deltaTime;
+        
         if (PlayerInSight())
         {
             if (coolDownTimer >= attackCoolDown)
