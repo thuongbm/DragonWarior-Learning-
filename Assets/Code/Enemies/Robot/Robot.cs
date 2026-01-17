@@ -9,7 +9,10 @@ public class Robot : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float attackCoolDown;
     [SerializeField] private float range;
-
+    
+    [Header("Range Attack")]
+    [SerializeField] private Transform bulletPoint;
+    [SerializeField] private GameObject[] bullet;
     
     [Header("Collider Parameters")]
     [SerializeField] private float colliderDistance;
@@ -41,6 +44,30 @@ public class Robot : MonoBehaviour
         }
     }
 
+    private void RangedAttack()
+    {
+        coolDownTimer = 0;
+
+        int index = FindBullet();
+        
+        bullet[index].transform.position = bulletPoint.position;
+        bullet[index].GetComponent<RobotProjectile>().SetDirection(Mathf.Sign(transform.localScale.x));
+        
+    }
+
+    private int FindBullet()
+    {
+        for (int i = 0; i < bullet.Length; i++)
+        {
+            if (!bullet[i].activeInHierarchy)
+            {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+    
     private bool PlayerInSight()
     {
         Vector3 boxOrigin = boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance;
