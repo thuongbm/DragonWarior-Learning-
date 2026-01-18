@@ -36,23 +36,22 @@ public class Robot : MonoBehaviour
         
         if (PlayerInSight())
         {
+            
             if (coolDownTimer >= attackCoolDown)
             {
                 coolDownTimer = 0;
                 animator.SetTrigger("Shooting");
+                RangedAttack();
             }
         }
     }
 
     private void RangedAttack()
     {
-        coolDownTimer = 0;
-
         int index = FindBullet();
         
         bullet[index].transform.position = bulletPoint.position;
         bullet[index].GetComponent<RobotProjectile>().SetDirection(Mathf.Sign(transform.localScale.x));
-        
     }
 
     private int FindBullet()
