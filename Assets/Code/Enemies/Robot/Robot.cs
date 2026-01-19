@@ -24,10 +24,12 @@ public class Robot : MonoBehaviour
     
     private Animator animator;
     private Health health;
+    private RobotPatrol robotPatrol;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        robotPatrol = GetComponent<RobotPatrol>();
     }
 
     private void Update()
@@ -44,8 +46,12 @@ public class Robot : MonoBehaviour
                 RangedAttack();
             }
         }
-    }
 
+        if (robotPatrol != null)
+        {
+            robotPatrol.enabled = !PlayerInSight();
+        }
+    }
     private void RangedAttack()
     {
         int index = FindBullet();
