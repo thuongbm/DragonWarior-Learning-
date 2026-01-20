@@ -13,7 +13,6 @@ public class Health : MonoBehaviour
     
     
     [Header("IFrame")]
-    
     [SerializeField] private float iFrameDuration;
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer spriteRenderer;
@@ -39,7 +38,22 @@ public class Health : MonoBehaviour
             if (!dead)
             {
                 animator.SetTrigger("Die");
-                GetComponent<moverment>().enabled = false;
+                //player
+                if (GetComponent<moverment>() != null)
+                {
+                    GetComponent<moverment>().enabled = false;
+                }
+
+                //knight
+                if (GetComponentInParent<KnightPatrol>() != null)
+                {
+                    GetComponentInParent<KnightPatrol>().enabled = false;
+                }
+
+                if (GetComponent<Knight>() != null)
+                {
+                    GetComponent<Knight>().enabled = false;
+                }
                 dead = true;
             }
         }
