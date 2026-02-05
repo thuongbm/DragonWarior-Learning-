@@ -29,14 +29,7 @@ public class Projectile : MonoBehaviour
         float movermentSpeed = speed * Time.deltaTime * direction;
         transform.Translate(movermentSpeed, 0, 0);
     }
-
-    // private void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     hit = true;
-    //     boxCollider.enabled = false;
-    //     animator.SetTrigger("Explode");
-    // }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         hit = true;
@@ -60,7 +53,7 @@ public class Projectile : MonoBehaviour
         {
             localScaleX = -localScaleX;
         }
-        
+
         transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
     }
 

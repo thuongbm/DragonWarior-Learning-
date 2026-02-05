@@ -25,11 +25,16 @@ public class RobotProjectile : MonoBehaviour
         transform.Translate(movermentSpeed, 0, 0);
     }
     
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         hit = true;
         boxCollider.enabled = false;
         animator.SetTrigger("Explode");
+
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<Health>().takeDamage(1);
+        }
     }
     
     public void SetDirection(float _direction)

@@ -16,6 +16,9 @@ public class Health : MonoBehaviour
     [SerializeField] private float iFrameDuration;
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer spriteRenderer;
+    
+    [Header("Behavior")]
+    [SerializeField] private Behaviour[] behaviours;
     private void Awake()
     {
         currentHealth = startHealth;
@@ -38,22 +41,12 @@ public class Health : MonoBehaviour
             if (!dead)
             {
                 animator.SetTrigger("Die");
-                //player
-                if (GetComponent<moverment>() != null)
+                
+                foreach (Behaviour behaviour in behaviours)
                 {
-                    GetComponent<moverment>().enabled = false;
+                    behaviour.enabled = false;
                 }
-
-                //knight
-                if (GetComponentInParent<KnightPatrol>() != null)
-                {
-                    GetComponentInParent<KnightPatrol>().enabled = false;
-                }
-
-                if (GetComponent<Knight>() != null)
-                {
-                    GetComponent<Knight>().enabled = false;
-                }
+                
                 dead = true;
             }
         }
