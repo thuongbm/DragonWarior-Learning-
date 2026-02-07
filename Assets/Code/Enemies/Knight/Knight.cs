@@ -17,6 +17,9 @@ public class Knight : MonoBehaviour
     [Header("Player")]
     [SerializeField] private LayerMask playerLayer;
     private float coolDownTimer = Mathf.Infinity;
+
+    [Header("Attack sound")] 
+    [SerializeField] private AudioClip attackSound;
     
     private Animator animator;
     private Health health;
@@ -38,6 +41,7 @@ public class Knight : MonoBehaviour
             {
                 coolDownTimer = 0;
                 animator.SetTrigger("triggerAtk");
+                SoundManager.instance.PlaySound(attackSound);
             }
             
         }

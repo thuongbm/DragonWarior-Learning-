@@ -15,6 +15,9 @@ public class moverment : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    
+    [Header("SFX")]
+    [SerializeField] private AudioClip jumpSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +50,7 @@ public class moverment : MonoBehaviour
             if (Input.GetKeyDown((KeyCode.Space)))
             {
                 Jump();
+                
             }
 
             if (onWall() && !isGrounded())
@@ -69,8 +73,9 @@ public class moverment : MonoBehaviour
     {
         if (isGrounded())
         {
+            SoundManager.instance.PlaySound(jumpSound);
             body.velocity = new Vector2(body.velocity.x, speed);
-            Grounded = false;   
+            Grounded = false;
             wallJumpCoolDown = 0;
         }
 

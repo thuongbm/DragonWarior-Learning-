@@ -8,6 +8,9 @@ public class FireTrap : MonoBehaviour
     [SerializeField] float damage;
     [SerializeField] private float activationDelay;
     [SerializeField] private float activeTime;
+    
+    [Header("SFX")]
+    [SerializeField] private AudioClip fireSound;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
@@ -32,6 +35,7 @@ public class FireTrap : MonoBehaviour
             if (active)
             {
                 other.GetComponent<Health>().takeDamage(damage);
+                SoundManager.instance.PlaySound(fireSound);
             }
         }
     }

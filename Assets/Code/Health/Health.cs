@@ -11,7 +11,6 @@ public class Health : MonoBehaviour
     private Animator animator;
     private bool dead;
     
-    
     [Header("IFrame")]
     [SerializeField] private float iFrameDuration;
     [SerializeField] private int numberOfFlashes;
@@ -19,6 +18,12 @@ public class Health : MonoBehaviour
     
     [Header("Behavior")]
     [SerializeField] private Behaviour[] behaviours;
+    
+    [Header("Death Sound")]
+    [SerializeField] private AudioClip deathSound;
+    
+    [Header("Hurt Sound")]
+    [SerializeField] private AudioClip hurtSound;
     private void Awake()
     {
         currentHealth = startHealth;
@@ -35,6 +40,8 @@ public class Health : MonoBehaviour
             animator.SetTrigger("Hurt");
 
             StartCoroutine(Invulnerability());
+            
+            SoundManager.instance.PlaySound(hurtSound);
         }
         else
         {
@@ -48,6 +55,8 @@ public class Health : MonoBehaviour
                 }
                 
                 dead = true;
+                
+                SoundManager.instance.PlaySound(deathSound);
             }
         }
     }
