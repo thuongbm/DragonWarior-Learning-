@@ -34,38 +34,34 @@ public class moverment : MonoBehaviour
         animator.SetBool("IsRunning", horizontalInput != 0);
         animator.SetBool("IsGrounded", isGrounded());
 
-        if (wallJumpCoolDown > 0.2f)
+        if (horizontalInput > 0.01f)
         {
-            if (horizontalInput > 0.01f)
-            {
-                transform.localScale = Vector3.one;
-            }
-            else if (horizontalInput < -0.01f)
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
-            
-            body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
-            
-            if (Input.GetKeyDown((KeyCode.Space)))
-            {
-                Jump();
-                
-            }
+            transform.localScale = Vector3.one;
+        }
+        else if (horizontalInput < 0.01f)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
 
-            if (onWall() && !isGrounded())
-            {
-                body.gravityScale = 0;
-                body.velocity = Vector2.zero;
-            }
-            else
-            {
-                body.gravityScale = 1;
-            }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();   
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space) && body.velocity.y > 0) 
+        {
+            body.velocity = new Vector2(body.velocity.x, body.velocity.y / 2);
+        }
+
+        if (onWall())
+        {
+            body.gravityScale = 0;
+            body.velocity = Vector2.zero;
         }
         else
         {
-            wallJumpCoolDown += Time.deltaTime;
+            body.gravityScale = 1;
+            body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
         }
     }
 
