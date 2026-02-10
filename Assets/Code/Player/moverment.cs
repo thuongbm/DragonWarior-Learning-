@@ -16,8 +16,20 @@ public class moverment : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
     
+    [Header("Jump power")]
+    [SerializeField] private float jumpPower;
+    
+    [Header("Extra Jump")]
+    [SerializeField] private int extraJump;
+    private int extraJumpCounter;
+    
     [Header("SFX")]
     [SerializeField] private AudioClip jumpSound;
+    
+    [Header("Coyote time")]
+    [SerializeField] private float coyoteTime;
+    private float coyoteCounter;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +57,8 @@ public class moverment : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();   
+            Jump();
+            
         }
 
         if (Input.GetKeyUp(KeyCode.Space) && body.velocity.y > 0) 
@@ -62,32 +75,56 @@ public class moverment : MonoBehaviour
         {
             body.gravityScale = 1;
             body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
+
+            if (isGrounded())
+            {
+                coyoteCounter = coyoteTime;
+                extraJumpCounter = extraJump;
+            }
+            else
+            {
+                coyoteCounter -= Time.deltaTime;
+            }
         }
     }
 
     private void Jump()
     {
-        if (isGrounded())
+        if (coyoteCounter < 0 && !onWall() && extraJumpCounter <= 0)
         {
-            SoundManager.instance.PlaySound(jumpSound);
-            body.velocity = new Vector2(body.velocity.x, speed);
-            Grounded = false;
-            wallJumpCoolDown = 0;
+            return;
         }
+        
+        SoundManager.instance.PlaySound(jumpSound);
 
+        if (onWall())
+        {
+            WallJump();
+        }
+        else if (isGrounded())
+        {
+            body.velocity = new Vector2(body.velocity.x, jumpPower);
+        }
         else
         {
-            if (horizontalInput == 0)
+            if (coyoteCounter > 0)
             {
-                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
-                transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                body.velocity = new Vector2(body.velocity.x, jumpPower);
             }
-
-            else
+            else if (extraJumpCounter > 0)
             {
-                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 6);
+                body.velocity = new Vector2(body.velocity.x, jumpPower);
+                extraJumpCounter--;
             }
         }
+
+        coyoteCounter = 0;
+
+    }
+
+    private void WallJump()
+    {
+        
     }
     
     private bool isGrounded()
