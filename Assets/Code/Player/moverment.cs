@@ -29,6 +29,10 @@ public class moverment : MonoBehaviour
     [Header("Coyote time")]
     [SerializeField] private float coyoteTime;
     private float coyoteCounter;
+
+    [Header("Wall Jump")] 
+    [SerializeField] private float wallJumpX;
+    [SerializeField] private float wallJumpY;
     
     // Start is called before the first frame update
     void Start()
@@ -124,7 +128,8 @@ public class moverment : MonoBehaviour
 
     private void WallJump()
     {
-        
+        body.AddForce(new Vector2(-Mathf.Sign(transform.localScale.x) * wallJumpX, wallJumpY));
+        wallJumpCoolDown = 0;
     }
     
     private bool isGrounded()
