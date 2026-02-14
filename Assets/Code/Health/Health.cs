@@ -47,12 +47,13 @@ public class Health : MonoBehaviour
         {
             if (!dead)
             {
-                animator.SetTrigger("Die");
-                
                 foreach (Behaviour behaviour in behaviours)
                 {
                     behaviour.enabled = false;
                 }
+                
+                animator.SetBool("isGrounded", false);
+                animator.SetTrigger("Die");
                 
                 dead = true;
                 
