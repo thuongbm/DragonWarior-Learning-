@@ -67,6 +67,20 @@ public class Health : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + value, 0, startHealth);
     }
 
+    public void Respawn()
+    {
+        dead = false;
+        AddHealth(startHealth);
+        animator.ResetTrigger("Die");
+        animator.Play("idle");
+        StartCoroutine(Invulnerability());
+        
+        foreach (Behaviour behaviour in behaviours)
+        {
+            behaviour.enabled = true;
+        }
+    }
+    
     private IEnumerator Invulnerability()
     {
         Physics2D.IgnoreLayerCollision(11, 12, true);
