@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectionArrow : MonoBehaviour
 {
@@ -27,8 +28,20 @@ public class SelectionArrow : MonoBehaviour
         {
             ChangePosition(1);
         }
+        
+        if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.E))
+        {
+            Interact();
+        }
     }
 
+    private void Interact()
+    {
+        SoundManager.instance.PlaySound(interactSound);
+        
+        buttons[currentPosition].GetComponent<Button>().onClick.Invoke();
+    }
+    
     private void ChangePosition(int position)
     {
         currentPosition += position;
